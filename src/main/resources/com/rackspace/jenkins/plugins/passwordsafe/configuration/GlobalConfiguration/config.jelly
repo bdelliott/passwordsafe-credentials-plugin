@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:c="/lib/credentials" xmlns:st="jelly:stapler"
+         xmlns:d="jelly:define">
+
+    <f:section title="Password Safe Credentials">
+        <f:entry title="Credentials" field="credentials">
+
+            <f:repeatableProperty field="credentials" add="Add credential" minimum="1">
+                <f:entry title="">
+                    <div align="right">
+                        <f:repeatableDeleteButton value="Delete credential"/>
+                    </div>
+                </f:entry>
+            </f:repeatableProperty>
+
+        </f:entry>
+    </f:section>
+</j:jelly>

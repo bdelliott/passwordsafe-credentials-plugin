@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+This plugin allows you to access Rackspace Password Safe credentials from Jenkins.
+</div>

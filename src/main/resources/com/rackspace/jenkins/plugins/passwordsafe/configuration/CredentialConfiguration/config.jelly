@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:c="/lib/credentials" xmlns:st="jelly:stapler"
+         xmlns:d="jelly:define">
+
+
+    <f:section title="Select a credential">
+        <f:entry title="Credential" >
+            <div id="foo">Foo</div>
+            <c:select field="credentialsId"/>
+        </f:entry>
+
+    </f:section>
+
+    <script>
+        var descriptor = <st:bind value="${descriptor}"/>
+
+    </script>
+    <script type="text/javascript">
+
+
+        /**
+         * When a credential is selected on the `select` dropdown, call out to the server
+         * to retrieve a list of projects in PasswordSafe that this credential grants access to.
+         *
+         * @param evt
+         */
+        function populateProjects(evt) {
+            console.log("populate this now");
+
+            var selectedCredential = evt.target.value;
+            console.log("Selected credential: " + selectedCredential);
+            descriptor.getProjects(selectedCredential, function(t) {
+               console.log(t);
+               console.log(t.responseObject());
+               var projects = t.responseObject();
+               console.log("response obj: ");
+               console.log(projects);
+            });
+        };
+
+        window.addEventListener("load", function (event) {
+            // descriptor is the useful bit embedded in a repeatable property.
+            //console.log("descriptor is: ${descriptor}");
+
+            var selects = document.getElementsByClassName("credentials-select");
+
+            for (var i = 0; i &lt; selects.length; i++) {
+                var select = selects[i];
+                select.onchange = populateProjects;
+            }
+
+        });
+
+    </script>
+
+    <f:section title="Choose projects to expose from PasswordSafe">
+        <f:entry field="projects" title="Projects">
+            <f:textbox/>
+        </f:entry>
+    </f:section>
+
+</j:jelly>
